@@ -349,8 +349,10 @@
   });
 
   /* ─── auto-resize: report height to parent iframe ─── */
+  const container = document.getElementById("timelineContainer");
   function sendHeight() {
-    const height = document.documentElement.scrollHeight;
+    // Measure the real content bottom (avoids trailing whitespace)
+    const height = Math.ceil(container.getBoundingClientRect().bottom);
     window.parent.postMessage({ ggWidgetHeight: height }, "*");
   }
   window.addEventListener("load", sendHeight);
