@@ -352,7 +352,8 @@
   const container = document.getElementById("timelineContainer");
   function sendHeight() {
     // Measure the real content bottom (avoids trailing whitespace)
-    const height = Math.ceil(container.getBoundingClientRect().bottom);
+    // +12 accounts for the container's bottom margin so nothing clips
+    const height = Math.ceil(container.getBoundingClientRect().bottom) + 12;
     window.parent.postMessage({ ggWidgetHeight: height }, "*");
   }
   window.addEventListener("load", sendHeight);
