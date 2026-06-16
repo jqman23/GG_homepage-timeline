@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GG Homepage Timeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  * {
+    font-family: "Montserrat", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+  }
+
+  /* Match the other widget’s container behavior */
+  #timelineContainer {
+    width: 100%;
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 0 10px;           /* protects edges from clipping */
+    box-sizing: border-box;
+  }
+
+  .monthTimeline {
+    width: 100%;
+    max-width: 100%;
+    margin: 10px auto 0;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .monthRow {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px 0;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+  }
+
+  .monthBox {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .25s ease, box-shadow .25s ease;
+    color: #000000;
+    position: relative;
+  }
+
+  .monthBox.active {
+    color: white !important;
+    font-weight: 700;
+  }
+
+  .monthBox.active:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+
+  /* ⭐️ OCTOBER HALO EFFECT ⭐️ */
+  .octoberGlow::before {
+    content: "";
+    position: absolute;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: radial-gradient(
+      rgba(249,139,44,0.35),
+      rgba(249,139,44,0) 70%
+    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Tints */
+  .tint-orange  { background: rgba(249,139,44,0.25); }
+  .tint-orange2 { background: rgba(249,139,44,0.45); }
+
+  .tint-red     { background: rgba(176,66,57,0.25); }
+  .tint-red2    { background: rgba(176,66,57,0.45); }
+
+  .tint-navy    { background: rgba(18,35,69,0.25); }
+  .tint-navy2   { background: rgba(18,35,69,0.45); }
+
+  .tint-teal    { background: rgba(24,112,137,0.25); }
+  .tint-teal2   { background: rgba(24,112,137,0.45); }
+
+  /* FULL-WIDTH CARD LIKE SESSION CARDS */
+  .monthCard {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 24px 0 0;
+    background: #ffffffd9;
+    padding: 26px 26px 30px;
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.14);
+    text-align: left;
+  }
+
+  .monthHeader {
+    padding: 6px 14px;
+    border-radius: 12px;
+    display: inline-block;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .monthHeaderMonth {
+    font-size: 0.9rem;
+    color: #000000;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .monthCard h3 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000000;
+  }
+
+  .monthCard p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.55;
+  }
+
+  .monthButton {
+    display: none;
+    margin-top: 18px;
+    padding: 7px 25px;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 20px;
+    font-weight: 400;   /* NOT bold */
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  .monthButton:hover {
+    background: #f5f5f5;
+  }
+
+</style>
+</head>
+<body>
+
+<div id="timelineContainer">
+  <div class="monthTimeline">
+    <div class="monthRow">
+
+      <div class="monthBox active" data-month="January" data-color="#F98B2C"
+           data-title="Call for Presentations Launch"
+           data-text="Our global Call for Presentations opens, inviting bold ideas and those with lived experience to shape the year ahead. This is when changemakers step forward, new voices join the conversation, and the foundations of the program begin to form. Submissions will remain open until April 24, 2026.">
+        Jan
+      </div>
+
+      <div class="monthBox tint-orange" data-month="February" data-color="rgba(249,139,44,0.25)"
+           data-title="Steering Committees in Motion"
+           data-text="Steering committees, represented by leaders from around the world, initiate their involvement in the event—helping shape direction, strengthen the program’s focus, expand outreach, and ensure community perspectives guide the planning process.">
+        Feb
+      </div>
+
+      <div class="monthBox active" data-month="March" data-color="#B04239"
+           data-title="Registration Launch"
+           data-text="Registration opens, giving individuals, teams, and organizations an opportunity to secure their spot. Scholarships and discounts are available to those with lived experience, groups, teams, agencies, and students.">
+        Mar
+      </div>
+
+      <div class="monthBox tint-orange2" data-month="April" data-color="rgba(249,139,44,0.45)"
+           data-title="Submission Review Process Begins"
+           data-text="Reviewers begin assessing submitted proposals, considering ideas, approaches, and contributions that will build a strong, relevant, and diverse program.">
+        Apr
+      </div>
+
+      <div class="monthBox tint-red" data-month="May" data-color="rgba(176,66,57,0.25)"
+           data-title="Program Development & Presenter Coordination"
+           data-text="The foundational program is crafted and publicized on the event website. Presenters receive initial guidance and support as planning, coordination, and communication ramp up.">
+        May
+      </div>
+
+      <div class="monthBox tint-red2" data-month="June" data-color="rgba(176,66,57,0.45)"
+           data-title="Program Enhancement & Skill Building Institutes"
+           data-text="June deepens the program through spoken word poetry, documentary screenings, international panels, and multilingual sessions. Skill Building Institute leaders work behind the scenes to craft intentional, interactive, and immersive virtual spaces for October.">
+        Jun
+      </div>
+
+      <div class="monthBox tint-navy" data-month="July" data-color="rgba(18,35,69,0.25)"
+           data-title="Strengthening Global Partnerships"
+           data-text="July centers collaboration with global partners, community networks, and regional leaders—broadening outreach and ensuring the event reflects a wide range of perspectives and experiences from around the world.">
+        Jul
+      </div>
+
+      <div class="monthBox tint-navy2" data-month="August" data-color="rgba(18,35,69,0.45)"
+           data-title="Volunteer Preparation & Training"
+           data-text="This Global Gathering is supported by a team of volunteers who serve as moderators, facilitators, and concierge support. These individuals assist speakers and attendees before, during, and after the event.">
+        Aug
+      </div>
+
+      <div class="monthBox active" data-month="September" data-color="#187089"
+           data-title="Attendee Hub Launch"
+           data-text="The online event center, Attendee Hub, opens, giving participants access to the full program schedule, resources, connection opportunities, and tools to navigate the program. Energy and momentum surge as the community prepares for October.">
+        Sep
+      </div>
+
+      <!-- ⭐️ OCTOBER WITH SUBTLE HALO HIGHLIGHT ⭐️ -->
+      <div class="monthBox active octoberGlow" data-month="October" data-color="#122345"
+           data-title="The Global Gathering"
+           data-text="Three days of connection, creativity, and learning unfold. Participants from around the world come together to reflect, explore ideas, challenge assumptions, and imagine new possibilities for child, youth, and family well-being.">
+        Oct
+      </div>
+
+      <div class="monthBox tint-teal" data-month="November" data-color="rgba(24,112,137,0.25)"
+           data-title="On-Demand Video Library Opens"
+           data-text="The full library of recorded sessions becomes available immediately following the event, allowing everyone to revisit content, watch sessions they missed, and continue learning at their own pace.">
+        Nov
+      </div>
+
+      <div class="monthBox tint-teal2" data-month="December" data-color="rgba(24,112,137,0.45)"
+           data-title="Reflection, Community Engagement, and Feedback"
+           data-text="The Global Gathering Team reviews insights, listens to feedback, and reflects on the momentum created throughout the year—closing the cycle with clarity about what worked and what will guide the next chapter.">
+        Dec
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div id="monthCard" class="monthCard">
+    <div id="monthHeader" class="monthHeader"></div>
+    <div id="monthHeaderMonth" class="monthHeaderMonth"></div>
+    <h3 id="monthTitle"></h3>
+    <p id="monthText"></p>
+    <a id="monthButton" class="monthButton" href="http://www.cvent.com/c/abstracts/8ccbd7d5-e590-43f1-952e-a8fc570ed400" target="_blank">
+      Learn more
+    </a>
+  </div>
+</div>
+
+<script>
+  const boxes = document.querySelectorAll(".monthBox");
+  const header = document.getElementById("monthHeader");
+  const monthLabel = document.getElementById("monthHeaderMonth");
+  const title = document.getElementById("monthTitle");
+  const text = document.getElementById("monthText");
+  const button = document.getElementById("monthButton");
+  let lastHoveredMonth = null;
+
+  // ─── click tracking (same process as sponsor widget) ───
+  let visitorIP = '', visitorCountry = '', visitorState = '', visitorCity = '';
+  fetch('https://geolocation-db.com/json/')
+    .then(res => res.json())
+    .then(data => {
+      visitorIP      = data.IPv4         || '';
+      visitorCountry = data.country_name || '';
+      visitorState   = data.state        || '';
+      visitorCity    = data.city         || '';
+    })
+    .catch(() => {});
+
+  const TRACKING_URL = "https://script.google.com/macros/s/AKfycbxq8HofSFbnFxS7HeKQKZVhyuPIqpu_7NAWhvOzAXBzyxfatdeJu8hfGCRCahOINshA/exec";
+
+  function trackClick(buttonName) {
+    const params = new URLSearchParams({
+      sheet:   "2026Registration",   // ✅ write to this tab
+      button:  buttonName,           // e.g. Timeline_Jan
+      ip:      visitorIP,
+      country: visitorCountry,
+      state:   visitorState,
+      city:    visitorCity
+    });
+
+    fetch(`${TRACKING_URL}?${params.toString()}`, { mode: "no-cors" });
+  }
+
+  /* DEFAULT = JUNE */
+  const defaultBox = document.querySelector('.monthBox[data-month="June"]');
+  header.style.background = defaultBox.getAttribute("data-color");
+  monthLabel.textContent = "June";
+  title.textContent = defaultBox.getAttribute("data-title");
+  text.textContent = defaultBox.getAttribute("data-text");
+  button.style.display = "none";
+
+  /* HOVER EFFECTS */
+  boxes.forEach(box => {
+    box.addEventListener("mouseenter", () => {
+
+      const monthShort = box.getAttribute("data-month").slice(0,3);
+
+      if (lastHoveredMonth !== monthShort) {
+        trackClick(`Timeline_${monthShort}`);
+        lastHoveredMonth = monthShort;
+      }
+
+      const color = box.getAttribute("data-color");
+      header.style.background = color;
+      monthLabel.textContent = box.getAttribute("data-month");
+      title.textContent = box.getAttribute("data-title");
+      text.textContent = box.getAttribute("data-text");
+      button.style.display = "none";
+    });
+  });
+
+  /* STATIC ACTIVE COLORS */
+  document.querySelectorAll(".monthBox.active").forEach(box => {
+    box.style.background = box.getAttribute("data-color");
+  });
+
+  // Track Learn more clicks (January CFP)
+  button.addEventListener("click", () => {
+    trackClick("Timeline_Jan_CFP");
+  });
+
+  /* ─── auto-resize: report height to parent iframe ─── */
+  function sendHeight() {
+    const height = document.documentElement.scrollHeight;
+    window.parent.postMessage({ ggWidgetHeight: height }, "*");
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  new ResizeObserver(sendHeight).observe(document.body);
+</script>
+
+</body>
+</html>
