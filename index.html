@@ -291,12 +291,12 @@
 
   const TRACKING_URL = "https://script.google.com/macros/s/AKfycbxq8HofSFbnFxS7HeKQKZVhyuPIqpu_7NAWhvOzAXBzyxfatdeJu8hfGCRCahOINshA/exec";
 
-  // Only ONE button is logged per session (same as our other widgets)
-  let trackedThisSession = false;
+  // Each button is logged only once per session (same as our other widgets)
+  const trackedButtons = new Set();
 
   function trackClick(buttonName) {
-    if (trackedThisSession) return;
-    trackedThisSession = true;
+    if (trackedButtons.has(buttonName)) return;
+    trackedButtons.add(buttonName);
 
     const params = new URLSearchParams({
       sheet:   "2026Registration",   // ✅ write to this tab
